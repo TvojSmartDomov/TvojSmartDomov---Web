@@ -1,54 +1,213 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="sk" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ochrana osobných údajov</title>
-    <!-- Tu pripojte svoj CSS štýl, napr.: -->
-    <link rel="stylesheet" href="style.css">
+    <title>Ochrana súkromia - TvojSmartDomov</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0f19',
+                        cardBg: '#131c31',
+                        accentBlue: '#3b82f6',
+                        accentCyan: '#06b6d4',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #f8fafc; }
+        .glow-card {
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.15);
+            transition: all 0.3s ease;
+        }
+        .glow-card:hover {
+            box-shadow: 0 0 35px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+    </style>
 </head>
-<body>
+<body class="bg-darkBg text-slate-100 antialiased selection:bg-blue-500 selection:text-white min-h-screen flex flex-col justify-between">
 
-    <header>
-        <!-- Tu si môžete dať svoju navigáciu / logo ako na hlavnej stránke -->
-        <a href="index.html">← Späť na hlavnú stránku</a>
+    <!-- Header / Navigácia -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-darkBg/85 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="index.html#domov" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+                    <i class="fa-solid fa-house-signal text-lg"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-white">Tvoj<span class="text-blue-500">SmartDomov</span></span>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="index.html#domov" class="hover:text-blue-400 transition">Domov</a>
+                <a href="index.html#vyhody" class="hover:text-blue-400 transition">Výhody</a>
+                <a href="index.html#vyuzitie" class="hover:text-blue-400 transition">Využitie</a>
+                <a href="index.html#sluzby" class="hover:text-blue-400 transition">Služby</a>
+                <a href="index.html#kontakty" class="hover:text-blue-400 transition">Kontakty</a>
+            </nav>
+
+            <div class="hidden md:block">
+                <a href="mailto:info@TvojSmartDomov.sk?subject=Nahl%C3%A1senie%20poruchy" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-5 py-2.5 rounded-xl text-sm shadow-lg shadow-blue-600/30 transition">
+                    Nahlásenie poruchy
+                </a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cardBg border-b border-slate-800 px-6 py-4 space-y-3">
+            <a href="index.html#domov" class="block text-slate-300 hover:text-blue-400">Domov</a>
+            <a href="index.html#vyhody" class="block text-slate-300 hover:text-blue-400">Výhody</a>
+            <a href="index.html#vyuzitie" class="block text-slate-300 hover:text-blue-400">Využitie</a>
+            <a href="index.html#sluzby" class="block text-slate-300 hover:text-blue-400">Služby</a>
+            <a href="index.html#kontakty" class="block text-slate-300 hover:text-blue-400">Kontakty</a>
+        </div>
     </header>
 
-    <main style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
-        <h1>Ochrana osobných údajov</h1>
+    <!-- Hlavný obsah -->
+    <main class="pt-32 pb-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow w-full">
+        <div class="mb-8">
+            <a href="index.html" class="inline-flex items-center space-x-2 text-sm text-blue-400 hover:text-blue-300 transition">
+                <i class="fa-solid fa-arrow-left text-xs"></i>
+                <span>Späť na hlavnú stránku</span>
+            </a>
+        </div>
 
-        <h2>1. Prevádzkovateľ</h2>
-        <p>
-            Prevádzkovateľom osobných údajov na tomto webe je:<br>
-            <strong>Meno a priezvisko:</strong> [Vaše Meno a Priezvisko]<br>
-            <strong>Adresa:</strong> [Vaša adresa / Mesto]<br>
-            <strong>E-mail:</strong> [Váš e-mail]
-        </p>
+        <div class="bg-cardBg border border-slate-800 rounded-3xl p-6 sm:p-10 glow-card space-y-8">
+            <div class="border-b border-slate-800 pb-6">
+                <span class="text-blue-400 text-xs font-semibold uppercase tracking-wider bg-blue-500/10 px-3.5 py-1 rounded-full border border-blue-500/20">Dokumenty</span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-3">Zásady ochrany osobných údajov</h1>
+            </div>
 
-        <h2>2. Aké údaje zbieram a prečo</h2>
-        <p>
-            Na tomto webe zbieram osobné údaje v nasledujúcich prípadoch:
-        </p>
-        <ul>
-            <li><strong>Kontaktný formulár:</strong> Meno a e-mailovú adresu zbieram výhradne na účely odpovede na vašu správu.</li>
-            <!-- Ak nepoužívate cookies ani Analytics, napíšte to sem: -->
-            <li><strong>Cookies:</strong> Tento web nepoužíva žiadne sledovacie ani marketingové cookies.</li>
-        </ul>
+            <!-- 1. Prevádzkovateľ -->
+            <section class="space-y-3">
+                <h2 class="text-xl font-bold text-white flex items-center space-x-2">
+                    <span class="text-blue-500">1.</span>
+                    <span>Prevádzkovateľ osobných údajov</span>
+                </h2>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Prevádzkovateľom osobných údajov spracúvaných na tejto webovej stránke je:
+                </p>
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300 space-y-1">
+                    <p><strong class="text-white">Meno a priezvisko / Názov:</strong> [Dopĺňte Vaše Meno a Priezvisko]</p>
+                    <p><strong class="text-white">Adresa:</strong> Petrova Ves 352, 908 44 Petrova Ves</p>
+                    <p><strong class="text-white">E-mail:</strong> info@TvojSmartDomov.sk</p>
+                    <p><strong class="text-white">Telefón:</strong> +421 948 777 115</p>
+                </div>
+            </section>
 
-        <h2>3. Doba uchovávania</h2>
-        <p>
-            Údaje uchovávam len po dobu nevyhnutnú na vybavenie vašej požiadavky.
-        </p>
+            <!-- 2. Aké údaje zbierame -->
+            <section class="space-y-3">
+                <h2 class="text-xl font-bold text-white flex items-center space-x-2">
+                    <span class="text-blue-500">2.</span>
+                    <span>Aké osobné údaje zbierame a na aký účel</span>
+                </h2>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Vaše osobné údaje spracúvame výhradne v rozsahu nevyhnutnom na vybavenie vašich požiadaviek:
+                </p>
+                <ul class="list-disc list-inside text-sm text-slate-300 space-y-2 pl-2">
+                    <li><strong class="text-white">Kontaktný formulár:</strong> Meno, priezvisko, e-mailová adresa a text správ. Tieto údaje zbierame na účely odpovede na váš dopyt alebo nahlásenú požiadavku.</li>
+                    <li><strong class="text-white">E-mailová komunikácia:</strong> Údaje poskytnuté pri priamom kontaktovaní e-mailom spracúvame len za účelom vybavenia vašej požiadavky.</li>
+                </ul>
+            </section>
 
-        <h2>4. Vaše práva</h2>
-        <p>
-            Máte právo požadovať prístup k svojim osobným údajom, ich opravu alebo vymazanie. V prípade otázok ma môžete kontaktovať na vyššie uvedenom e-maile.
-        </p>
+            <!-- 3. Právny základ -->
+            <section class="space-y-3">
+                <h2 class="text-xl font-bold text-white flex items-center space-x-2">
+                    <span class="text-blue-500">3.</span>
+                    <span>Právny základ spracúvania</span>
+                </h2>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Právnym základom pre spracúvanie vašich osobných údajov je predzmluvný vzťah (vybavenie vášho dopytu) v zmysle čl. 6 ods. 1 písm. b) GDPR a oprávnený záujem v zmysle čl. 6 ods. 1 písm. f) GDPR na komunikáciu so zákazníkmi a návštevníkmi webu.
+                </p>
+            </section>
+
+            <!-- 4. Doba uchovávania -->
+            <section class="space-y-3">
+                <h2 class="text-xl font-bold text-white flex items-center space-x-2">
+                    <span class="text-blue-500">4.</span>
+                    <span>Doba uchovávania údajov</span>
+                </h2>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Osobné údaje uchovávame len po dobu nevyhnutnú na vybavenie vašej komunikácie, maximálne však po dobu 1 roka od posledného kontaktu, pokiaľ nevznikne zmluvný vzťah alebo zákonná povinnosť ich uchovávať dlhšie.
+                </p>
+            </section>
+
+            <!-- 5. Cookies -->
+            <section class="space-y-3">
+                <h2 class="text-xl font-bold text-white flex items-center space-x-2">
+                    <span class="text-blue-500">5.</span>
+                    <span>Súbory cookies</span>
+                </h2>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Tento web nepoužíva žiadne sledovacie, profilovacie ani marketingové cookies tretích strán. Používané môžu byť len nevyhnutné technické cookies zabezpečujúce správne fungovanie webu.
+                </p>
+            </section>
+
+            <!-- 6. Vaše práva -->
+            <section class="space-y-3">
+                <h2 class="text-xl font-bold text-white flex items-center space-x-2">
+                    <span class="text-blue-500">6.</span>
+                    <span>Vaše práva podľa GDPR</span>
+                </h2>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Ako dotknutá osoba máte nasledujúce práva:
+                </p>
+                <ul class="list-disc list-inside text-sm text-slate-300 space-y-2 pl-2">
+                    <li>Právo na prístup k svojim osobným údajom</li>
+                    <li>Právo na opravu nesprávnych alebo neúplných údajov</li>
+                    <li>Právo na vymazanie údajov („právo na zabudnutie“)</li>
+                    <li>Právo na obmedzenie spracúvania</li>
+                    <li>Právo podať sťažnosť na Úrad na ochranu osobných údajov SR</li>
+                </ul>
+                <p class="text-slate-300 text-sm leading-relaxed pt-2">
+                    V prípade uplatnenia vašich práv nás môžete kontaktovať na e-maily <a href="mailto:info@TvojSmartDomov.sk" class="text-blue-400 hover:underline">info@TvojSmartDomov.sk</a>.
+                </p>
+            </section>
+        </div>
     </main>
 
-    <footer>
-        <p>&copy; 2026 [Vaše Meno]. Všetky práva vyhradené.</p>
+    <!-- Footer / Pätička -->
+    <footer class="border-t border-slate-800 py-8 bg-darkBg text-slate-500 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2">
+                <div class="w-6 h-6 rounded-lg bg-blue-600 flex items-center justify-center text-white text-xs">
+                    <i class="fa-solid fa-house-signal"></i>
+                </div>
+                <span class="text-slate-300 font-semibold">TvojSmartDomov © 2026</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="ochrana-sukromia.html" class="text-slate-300 font-medium transition">Ochrana súkromia</a>
+                <a href="index.html#domov" class="hover:text-slate-300 transition">Podmienky</a>
+                <a href="index.html#kontakty" class="hover:text-slate-300 transition">Podpora</a>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
 
 </body>
 </html>
