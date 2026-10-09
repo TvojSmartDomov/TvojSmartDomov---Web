@@ -329,7 +329,7 @@
                     </div>
                 </div>
 
-                <!-- RÝCHLE SCÉNY (Noc a Dovolenka) - teraz v pravom stĺpci pod dashboardom -->
+                <!-- RÝCHLE SCÉNY (Noc a Dovolenka) -->
                 <div class="bg-cardBg border border-slate-800 rounded-3xl p-6 glow-card space-y-4">
                     <div class="flex items-center justify-between border-b border-slate-800 pb-3">
                         <span class="text-xs font-bold tracking-wider text-slate-300 uppercase">RÝCHLE SCÉNY DOMU</span>
@@ -489,13 +489,11 @@
                     if (lightsState[key]) toggleLight(key);
                 }
                 if (!alarmState) toggleAlarm('chodba-alarm');
-                alert('Aktivovaná scéna: Noc (Všetky svetlá zhasnuté, alarm zapnutý).');
             } else if (sceneName === 'dovolenka') {
                 for (let key in lightsState) {
                     if (lightsState[key]) toggleLight(key);
                 }
                 if (!alarmState) toggleAlarm('chodba-alarm');
-                alert('Aktivovaná scéna: Dovolenka (Úsporný režim klimatizácií, zabezpečený dom).');
             }
         }
 
