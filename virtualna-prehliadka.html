@@ -78,7 +78,11 @@
                 <a href="index.html#kontakty" class="hover:text-blue-400 transition">Kontakty</a>
             </nav>
 
-            <div class="hidden md:block">
+            <div class="hidden md:flex items-center space-x-3">
+                <a href="virtualna-prehliadka.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-5 py-2.5 rounded-xl text-sm border border-slate-700 transition flex items-center space-x-2">
+                    <i class="fa-solid fa-vr-cardboard text-blue-400"></i>
+                    <span>Virtuálna prehliadka</span>
+                </a>
                 <a href="mailto:info@TvojSmartDomov.sk?subject=Nahl%C3%A1senie%20poruchy" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-5 py-2.5 rounded-xl text-sm shadow-lg shadow-blue-600/30 transition">
                     Nahlásenie poruchy
                 </a>
@@ -97,6 +101,10 @@
             <a href="index.html#vyuzitie" class="block text-slate-300 hover:text-blue-400">Využitie</a>
             <a href="index.html#sluzby" class="block text-slate-300 hover:text-blue-400">Služby</a>
             <a href="index.html#kontakty" class="block text-slate-300 hover:text-blue-400">Kontakty</a>
+            <div class="pt-2 flex flex-col space-y-2">
+                <a href="virtualna-prehliadka.html" class="bg-slate-800 text-center text-slate-200 font-semibold px-4 py-2.5 rounded-xl text-sm border border-slate-700">Virtuálna prehliadka</a>
+                <a href="mailto:info@TvojSmartDomov.sk" class="bg-blue-600 text-center text-white font-semibold px-4 py-2.5 rounded-xl text-sm">Nahlásenie poruchy</a>
+            </div>
         </div>
     </header>
 
@@ -112,37 +120,85 @@
         <!-- DVOJSTĹPCOVÝ LAYOUT -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             
-            <!-- ĽAVÝ STĹPEC: Pôdorys s interaktívnymi ikonami -->
-            <div class="bg-cardBg border border-slate-800 rounded-3xl p-6 glow-card relative flex flex-col items-center justify-center">
-                <div class="absolute top-4 left-6 text-sm font-semibold text-slate-300 flex items-center space-x-2 z-10">
-                    <i class="fa-solid fa-map text-blue-500"></i>
-                    <span>Pôdorys domu (Živé ikony v miestnostiach)</span>
+            <!-- ĽAVÝ STĹPEC: Pôdorys + Ovládanie žalúzií a spotreba -->
+            <div class="space-y-6">
+                
+                <!-- Pôdorys domu -->
+                <div class="bg-cardBg border border-slate-800 rounded-3xl p-6 glow-card relative flex flex-col items-center justify-center">
+                    <div class="absolute top-4 left-6 text-sm font-semibold text-slate-300 flex items-center space-x-2 z-10">
+                        <i class="fa-solid fa-map text-blue-500"></i>
+                        <span>Pôdorys domu (Živé ikony v miestnostiach)</span>
+                    </div>
+
+                    <div class="w-full mt-10 rounded-2xl border-2 border-slate-700/80 overflow-hidden shadow-2xl relative bg-slate-950 flex items-center justify-center">
+                        <img src="podorys-domu.png" alt="Pôdorys domu" class="w-full h-auto block object-contain">
+
+                        <!-- INTERAKTÍVNE IKONY -->
+                        <div id="icon-spalna-light" class="map-icon light-on" style="top: 22%; left: 62%;" title="Svetlo - Spálňa"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div id="icon-spalna-ac" class="map-icon ac-green" style="top: 22%; left: 54%;" title="Klíma - Spálňa"><i class="fa-solid fa-snowflake"></i></div>
+
+                        <div id="icon-pracovna-light" class="map-icon light-on" style="top: 22%; left: 28%;" title="Svetlo - Pracovňa"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div id="icon-pracovna-ac" class="map-icon ac-green" style="top: 22%; left: 36%;" title="Klíma - Pracovňa"><i class="fa-solid fa-snowflake"></i></div>
+
+                        <div id="icon-izba2-light" class="map-icon light-on" style="top: 42%; left: 62%;" title="Svetlo - Izba"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div id="icon-izba2-ac" class="map-icon ac-green" style="top: 42%; left: 54%;" title="Klíma - Izba"><i class="fa-solid fa-snowflake"></i></div>
+
+                        <div id="icon-obyvacka-light" class="map-icon light-on" style="top: 65%; left: 65%;" title="Svetlo - Obývačka"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div id="icon-obyvacka-ac" class="map-icon ac-green" style="top: 65%; left: 52%;" title="Klíma - Obývačka"><i class="fa-solid fa-snowflake"></i></div>
+
+                        <div id="icon-wellness-light" class="map-icon light-on" style="top: 50%; left: 25%;" title="Svetlo - Wellness"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div id="icon-wellness-ac" class="map-icon ac-green" style="top: 58%; left: 25%;" title="Klíma - Wellness"><i class="fa-solid fa-snowflake"></i></div>
+
+                        <div id="icon-chodba-alarm" class="map-icon alarm-on" style="top: 35%; left: 45%;" title="Alarm - Chodba"><i class="fa-solid fa-shield-halved"></i></div>
+                    </div>
                 </div>
 
-                <div class="w-full mt-10 rounded-2xl border-2 border-slate-700/80 overflow-hidden shadow-2xl relative bg-slate-950 flex items-center justify-center">
-                    <img src="podorys-domu.png" alt="Pôdorys domu" class="w-full h-auto block object-contain">
+                <!-- ŽALÚZIE & SPOTREBA -->
+                <div class="bg-cardBg border border-slate-800 rounded-3xl p-6 glow-card space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <span class="text-xs font-bold tracking-wider text-slate-300 uppercase">ENERGIE & TIENENIE</span>
+                        <span class="text-xs text-emerald-400 font-semibold flex items-center space-x-1.5">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span>14.5 kWh / 24h</span>
+                        </span>
+                    </div>
 
-                    <!-- INTERAKTÍVNE IKONY -->
-                    <div id="icon-spalna-light" class="map-icon light-on" style="top: 22%; left: 62%;" title="Svetlo - Spálňa"><i class="fa-solid fa-lightbulb"></i></div>
-                    <div id="icon-spalna-ac" class="map-icon ac-green" style="top: 22%; left: 54%;" title="Klíma - Spálňa"><i class="fa-solid fa-snowflake"></i></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <!-- Obývačka žalúzie -->
+                        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3 space-y-2 text-center">
+                            <div class="text-xs font-bold text-slate-300">Obývačka</div>
+                            <div class="text-[11px] text-blue-400 font-medium">Zatiahnuté</div>
+                            <div class="flex justify-center space-x-1 pt-1">
+                                <button onclick="setBlinds('obyvacka', 'open')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-lg transition cursor-pointer">Hore</button>
+                                <button onclick="setBlinds('obyvacka', 'close')" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white text-xs rounded-lg transition cursor-pointer">Dole</button>
+                            </div>
+                        </div>
 
-                    <div id="icon-pracovna-light" class="map-icon light-on" style="top: 22%; left: 28%;" title="Svetlo - Pracovňa"><i class="fa-solid fa-lightbulb"></i></div>
-                    <div id="icon-pracovna-ac" class="map-icon ac-green" style="top: 22%; left: 36%;" title="Klíma - Pracovňa"><i class="fa-solid fa-snowflake"></i></div>
+                        <!-- Spálňa žalúzie -->
+                        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3 space-y-2 text-center">
+                            <div class="text-xs font-bold text-slate-300">Spálňa</div>
+                            <div class="text-[11px] text-emerald-400 font-medium">Otvorené</div>
+                            <div class="flex justify-center space-x-1 pt-1">
+                                <button onclick="setBlinds('spalna', 'open')" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white text-xs rounded-lg transition cursor-pointer">Hore</button>
+                                <button onclick="setBlinds('spalna', 'close')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-lg transition cursor-pointer">Dole</button>
+                            </div>
+                        </div>
 
-                    <div id="icon-izba2-light" class="map-icon light-on" style="top: 42%; left: 62%;" title="Svetlo - Izba"><i class="fa-solid fa-lightbulb"></i></div>
-                    <div id="icon-izba2-ac" class="map-icon ac-green" style="top: 42%; left: 54%;" title="Klíma - Izba"><i class="fa-solid fa-snowflake"></i></div>
-
-                    <div id="icon-obyvacka-light" class="map-icon light-on" style="top: 65%; left: 65%;" title="Svetlo - Obývačka"><i class="fa-solid fa-lightbulb"></i></div>
-                    <div id="icon-obyvacka-ac" class="map-icon ac-green" style="top: 65%; left: 52%;" title="Klíma - Obývačka"><i class="fa-solid fa-snowflake"></i></div>
-
-                    <div id="icon-wellness-light" class="map-icon light-on" style="top: 50%; left: 25%;" title="Svetlo - Wellness"><i class="fa-solid fa-lightbulb"></i></div>
-                    <div id="icon-wellness-ac" class="map-icon ac-green" style="top: 58%; left: 25%;" title="Klíma - Wellness"><i class="fa-solid fa-snowflake"></i></div>
-
-                    <div id="icon-chodba-alarm" class="map-icon alarm-on" style="top: 35%; left: 45%;" title="Alarm - Chodba"><i class="fa-solid fa-shield-halved"></i></div>
+                        <!-- Pracovňa žalúzie -->
+                        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3 space-y-2 text-center">
+                            <div class="text-xs font-bold text-slate-300">Pracovňa</div>
+                            <div class="text-[11px] text-blue-400 font-medium">Naklopené</div>
+                            <div class="flex justify-center space-x-1 pt-1">
+                                <button onclick="setBlinds('pracovna', 'open')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-lg transition cursor-pointer">Hore</button>
+                                <button onclick="setBlinds('pracovna', 'close')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-lg transition cursor-pointer">Dole</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
-<!-- PRAVÝ STĹPEC: Home Assistant Dashboard -->
+            <!-- PRAVÝ STĹPEC: Home Assistant Dashboard -->
             <div class="bg-cardBg border border-slate-800 rounded-3xl p-6 glow-card space-y-4">
                 
                 <div class="flex items-center justify-between border-b border-slate-800 pb-4">
@@ -268,6 +324,9 @@
                     </div>
 
                 </div>
+            </div>
+
+        </div>
         
         <!-- Tlačidlo Späť na hlavnú stránku -->
         <div class="text-center mt-12">
@@ -334,10 +393,10 @@
 
             if (isOn) {
                 btn.className = "w-12 h-7 bg-blue-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end";
-                icon.className = "map-icon light-on";
+                if(icon) icon.className = "map-icon light-on";
             } else {
                 btn.className = "w-12 h-7 bg-slate-700 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-start";
-                icon.className = "map-icon light-off";
+                if(icon) icon.className = "map-icon light-off";
             }
         }
 
@@ -346,14 +405,16 @@
             const currentTemp = temperatures[id];
             
             const tempSpan = document.getElementById('temp-' + id);
-            tempSpan.innerText = currentTemp + " °C";
+            if(tempSpan) tempSpan.innerText = currentTemp + " °C";
 
-            if (currentTemp <= 21) {
-                tempSpan.className = "text-sm font-bold text-blue-400 w-12 text-center";
-            } else if (currentTemp === 22) {
-                tempSpan.className = "text-sm font-bold text-emerald-400 w-12 text-center";
-            } else {
-                tempSpan.className = "text-sm font-bold text-rose-400 w-12 text-center";
+            if (tempSpan) {
+                if (currentTemp <= 21) {
+                    tempSpan.className = "text-xs font-bold text-blue-400 w-12 text-center";
+                } else if (currentTemp === 22) {
+                    tempSpan.className = "text-xs font-bold text-emerald-400 w-12 text-center";
+                } else {
+                    tempSpan.className = "text-xs font-bold text-rose-400 w-12 text-center";
+                }
             }
 
             const icon = document.getElementById('icon-' + id);
@@ -374,12 +435,17 @@
             const icon = document.getElementById('icon-' + id);
 
             if (alarmState) {
-                btn.className = "w-12 h-7 bg-emerald-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end";
-                icon.className = "map-icon alarm-on";
+                if(btn) btn.className = "w-12 h-7 bg-emerald-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end";
+                if(icon) icon.className = "map-icon alarm-on";
             } else {
-                btn.className = "w-12 h-7 bg-slate-700 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-start";
-                icon.className = "map-icon alarm-off";
+                if(btn) btn.className = "w-12 h-7 bg-slate-700 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-start";
+                if(icon) icon.className = "map-icon alarm-off";
             }
+        }
+
+        function setBlinds(room, action) {
+            // Jednoduchá interaktívna odozva pre žalúzie
+            console.log(`Žalúzie v miestnosti ${room} nastavené na: ${action}`);
         }
 
         // Hodiny v reálnom čase
