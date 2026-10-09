@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtuálna prehliadka - TvojSmartDomov</title>
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -12,153 +12,252 @@
                 extend: {
                     colors: {
                         darkBg: '#0b0f19',
-                        cardBg: '#111827',
+                        cardBg: '#131c31',
+                        accentBlue: '#3b82f6',
+                        accentCyan: '#06b6d4',
                     }
                 }
             }
         }
     </script>
-    <!-- Google Model Viewer pre 3D súbory (.glb) -->
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <!-- FontAwesome ikony -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
     <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #f8fafc; }
         .glow-card {
-            box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.15);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.15);
+            transition: all 0.3s ease;
         }
+        .glow-card:hover {
+            box-shadow: 0 0 35px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        .map-icon {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+        .light-off { background-color: rgba(30, 41, 59, 0.8); color: #64748b; border: 1px solid #475569; box-shadow: none; }
+        .light-on { background-color: #fbbf24; color: #1e293b; border: 2px solid #fff; box-shadow: 0 0 15px #fbbf24; }
+        
+        .ac-green { background-color: #10b981; color: #fff; border: 2px solid #fff; box-shadow: 0 0 15px #10b981; }
+        .ac-blue { background-color: #3b82f6; color: #fff; border: 2px solid #fff; box-shadow: 0 0 15px #3b82f6; }
+        .ac-red { background-color: #f43f5e; color: #fff; border: 2px solid #fff; box-shadow: 0 0 15px #f43f5e; }
+
+        .alarm-off { background-color: rgba(30, 41, 59, 0.8); color: #64748b; border: 1px solid #475569; box-shadow: none; }
+        .alarm-on { background-color: #10b981; color: #fff; border: 2px solid #fff; box-shadow: 0 0 15px #10b981; }
     </style>
 </head>
 <body class="bg-darkBg text-slate-100 antialiased selection:bg-blue-500 selection:text-white">
 
     <!-- HLAVIČKA -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-darkBg/80 backdrop-blur-md border-b border-slate-800">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-darkBg/85 backdrop-blur-md border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="index.html" class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30">
-                    <i class="fa-solid fa-house-signal"></i>
+            <a href="index.html#domov" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+                    <i class="fa-solid fa-house-signal text-lg"></i>
                 </div>
-                <span class="text-xl font-bold tracking-tight text-white">Tvoj<span class="text-blue-500">Smart</span>Domov</span>
+                <span class="text-xl font-bold tracking-tight text-white">Tvoj<span class="text-blue-500">SmartDomov</span></span>
             </a>
+            
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="index.html#domov" class="hover:text-blue-400 transition-colors">Domov</a>
-                <a href="index.html#vyhody" class="hover:text-blue-400 transition-colors">Výhody</a>
-                <a href="index.html#vyuzitie" class="hover:text-blue-400 transition-colors">Využitie</a>
-                <a href="index.html#sluzby" class="hover:text-blue-400 transition-colors">Služby</a>
-                <a href="index.html#kontakty" class="hover:text-blue-400 transition-colors">Kontakty</a>
+                <a href="index.html#domov" class="hover:text-blue-400 transition">Domov</a>
+                <a href="index.html#vyhody" class="hover:text-blue-400 transition">Výhody</a>
+                <a href="index.html#vyuzitie" class="hover:text-blue-400 transition">Využitie</a>
+                <a href="index.html#sluzby" class="hover:text-blue-400 transition">Služby</a>
+                <a href="index.html#kontakty" class="hover:text-blue-400 transition">Kontakty</a>
             </nav>
-            <a href="index.html#kontakty" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-blue-600/20 text-sm">
-                Nahlásenie poruchy
-            </a>
+
+            <div class="hidden md:block">
+                <a href="mailto:info@TvojSmartDomov.sk?subject=Nahl%C3%A1senie%20poruchy" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-5 py-2.5 rounded-xl text-sm shadow-lg shadow-blue-600/30 transition">
+                    Nahlásenie poruchy
+                </a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cardBg border-b border-slate-800 px-6 py-4 space-y-3">
+            <a href="index.html#domov" class="block text-slate-300 hover:text-blue-400">Domov</a>
+            <a href="index.html#vyhody" class="block text-slate-300 hover:text-blue-400">Výhody</a>
+            <a href="index.html#vyuzitie" class="block text-slate-300 hover:text-blue-400">Využitie</a>
+            <a href="index.html#sluzby" class="block text-slate-300 hover:text-blue-400">Služby</a>
+            <a href="index.html#kontakty" class="block text-slate-300 hover:text-blue-400">Kontakty</a>
         </div>
     </header>
 
     <!-- HLAVNÝ OBSAH -->
-    <main class="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main class="pt-32 pb-20 lg:pt-40 lg:pb-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
-            <span class="text-blue-400 text-xs font-semibold uppercase tracking-wider bg-blue-500/10 px-3.5 py-1 rounded-full border border-blue-500/20">3D Virtuálna prehliadka</span>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Interaktívny 3D Pôdorys domu</h1>
-            <p class="text-slate-400 text-sm sm:text-base">Prezrite si reálny 3D model domu a ovládajte inteligentné systémy v reálnom čase.</p>
+            <span class="text-blue-400 text-xs font-semibold uppercase tracking-wider bg-blue-500/10 px-3.5 py-1 rounded-full border border-blue-500/20">Virtuálna prehliadka</span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Interaktívny Pôdorys Domu</h1>
+            <p class="text-slate-400 text-sm sm:text-base">Ovládajte osvetlenie, teplotu klimatizácií a zabezpečenie priamo cez reálny pôdorys.</p>
         </div>
 
         <!-- DVOJSTĹPCOVÝ LAYOUT -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             
-            <!-- ĽAVÝ STĹPEC: 3D model domu -->
-            <div class="bg-cardBg border border-slate-800 rounded-3xl p-6 glow-card relative flex flex-col items-center justify-center min-h-[560px]">
+            <!-- ĽAVÝ STĹPEC: Pôdorys s interaktívnymi ikonami -->
+            <div class="bg-cardBg border border-slate-800 rounded-3xl p-6 glow-card relative flex flex-col items-center justify-center">
                 <div class="absolute top-4 left-6 text-sm font-semibold text-slate-300 flex items-center space-x-2 z-10">
-                    <i class="fa-solid fa-cube text-blue-500"></i>
-                    <span>3D Pôdorys domu (Interaktívny model)</span>
+                    <i class="fa-solid fa-map text-blue-500"></i>
+                    <span>Pôdorys domu (Živé ikony v miestnostiach)</span>
                 </div>
 
-                <!-- Google model-viewer element s online testovacím modelom -->
-                <div class="w-full h-[460px] mt-8 bg-slate-900/90 rounded-2xl border-2 border-slate-700/80 overflow-hidden shadow-2xl flex items-center justify-center">
-                    <model-viewer 
-                        src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
-                        alt="3D model domu" 
-                        auto-rotate 
-                        camera-controls 
-                        shadow-intensity="1" 
-                        style="width: 100%; height: 100%;">
-                    </model-viewer>
+                <div class="w-full mt-10 rounded-2xl border-2 border-slate-700/80 overflow-hidden shadow-2xl relative bg-slate-950 flex items-center justify-center">
+                    <img src="podorys-domu.png" alt="Pôdorys domu" class="w-full h-auto block object-contain">
+
+                    <!-- INTERAKTÍVNE IKONY -->
+                    <div id="icon-spalna-light" class="map-icon light-on" style="top: 22%; left: 62%;" title="Svetlo - Spálňa"><i class="fa-solid fa-lightbulb"></i></div>
+                    <div id="icon-spalna-ac" class="map-icon ac-green" style="top: 22%; left: 54%;" title="Klíma - Spálňa"><i class="fa-solid fa-snowflake"></i></div>
+
+                    <div id="icon-pracovna-light" class="map-icon light-on" style="top: 22%; left: 28%;" title="Svetlo - Pracovňa"><i class="fa-solid fa-lightbulb"></i></div>
+                    <div id="icon-pracovna-ac" class="map-icon ac-green" style="top: 22%; left: 36%;" title="Klíma - Pracovňa"><i class="fa-solid fa-snowflake"></i></div>
+
+                    <div id="icon-izba2-light" class="map-icon light-on" style="top: 42%; left: 62%;" title="Svetlo - Izba"><i class="fa-solid fa-lightbulb"></i></div>
+                    <div id="icon-izba2-ac" class="map-icon ac-green" style="top: 42%; left: 54%;" title="Klíma - Izba"><i class="fa-solid fa-snowflake"></i></div>
+
+                    <div id="icon-obyvacka-light" class="map-icon light-on" style="top: 65%; left: 65%;" title="Svetlo - Obývačka"><i class="fa-solid fa-lightbulb"></i></div>
+                    <div id="icon-obyvacka-ac" class="map-icon ac-green" style="top: 65%; left: 52%;" title="Klíma - Obývačka"><i class="fa-solid fa-snowflake"></i></div>
+
+                    <div id="icon-wellness-light" class="map-icon light-on" style="top: 50%; left: 25%;" title="Svetlo - Wellness"><i class="fa-solid fa-lightbulb"></i></div>
+                    <div id="icon-wellness-ac" class="map-icon ac-green" style="top: 58%; left: 25%;" title="Klíma - Wellness"><i class="fa-solid fa-snowflake"></i></div>
+
+                    <div id="icon-chodba-alarm" class="map-icon alarm-on" style="top: 35%; left: 45%;" title="Alarm - Chodba"><i class="fa-solid fa-shield-halved"></i></div>
                 </div>
-                <span class="text-xs text-slate-500 mt-4"><i class="fa-solid fa-circle-info mr-1"></i> Model môžete myšou otáčať, približovať a prezerať.</span>
             </div>
 
             <!-- PRAVÝ STĹPEC: Home Assistant Dashboard -->
-            <div class="bg-cardBg border border-slate-800 rounded-3xl p-6 glow-card space-y-6">
+            <div class="bg-cardBg border border-slate-800 rounded-3xl p-6 glow-card space-y-5">
                 
-                <!-- Hlavička dashboardu -->
                 <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-                    <span class="text-sm font-bold tracking-wider text-slate-300 uppercase">VIRTUALNY SMART HOME</span>
-                    <span id="dash-clock" class="text-sm font-semibold text-slate-400">13:46</span>
+                    <span class="text-sm font-bold tracking-wider text-slate-300 uppercase">HOME ASSISTANT - OVLÁDANIE</span>
+                    <span id="dash-clock" class="text-sm font-semibold text-slate-400">14:20</span>
                 </div>
 
-                <!-- 3 Horné sumárne karty -->
-                <div class="grid grid-cols-3 gap-3">
-                    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 text-center">
-                        <i class="fa-solid fa-lightbulb text-amber-400 text-lg mb-2"></i>
-                        <div class="text-xs font-medium text-slate-300">Svetlá</div>
-                        <div id="sum-lights" class="text-xs font-bold text-amber-400 mt-1">Zapnuté</div>
+                <!-- 1. Spálňa -->
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-3">
+                    <div class="text-xs font-bold text-blue-400 uppercase tracking-wide">Spálňa</div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-slate-300 flex items-center space-x-2"><i class="fa-solid fa-lightbulb text-amber-400"></i><span>Svetlo</span></span>
+                        <button onclick="toggleLight('spalna-light')" id="btn-spalna-light" class="w-12 h-7 bg-blue-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end">
+                            <div id="thumb-spalna-light" class="w-5 h-5 bg-white rounded-full shadow-md transition-transform"></div>
+                        </button>
                     </div>
-                    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 text-center">
-                        <i class="fa-solid fa-solar-panel text-cyan-400 text-lg mb-2"></i>
-                        <div class="text-xs font-medium text-slate-300">Solar</div>
-                        <div class="text-xs font-bold text-cyan-400 mt-1">5.4 kW</div>
-                    </div>
-                    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 text-center">
-                        <i class="fa-solid fa-shield text-emerald-400 text-lg mb-2"></i>
-                        <div class="text-xs font-medium text-slate-300">Alarm</div>
-                        <div id="sum-alarm" class="text-xs font-bold text-emerald-400 mt-1">Strážené</div>
-                    </div>
-                </div>
-
-                <!-- Ovládací prvok 1: Hlavné osvetlenie (3 svetlá) -->
-                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
-                            <i class="fa-solid fa-lightbulb"></i>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                        <span class="text-sm text-slate-300 flex items-center space-x-2"><i class="fa-solid fa-snowflake text-rose-400"></i><span>Klíma teplota</span></span>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="adjustTemp('spalna-ac', -1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition-colors cursor-pointer">-</button>
+                            <span id="temp-spalna-ac" class="text-sm font-bold text-emerald-400 w-12 text-center">22 °C</span>
+                            <button onclick="adjustTemp('spalna-ac', 1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition-colors cursor-pointer">+</button>
                         </div>
-                        <div>
-                            <div class="text-sm font-bold text-white">Hlavné osvetlenie (3x svetlo)</div>
-                            <div class="text-xs text-slate-400">Ovládanie osvetlenia objektu</div>
-                        </div>
-                    </div>
-                    <button onclick="toggleHomeLights()" id="btn-lights" class="w-14 h-8 bg-blue-600 rounded-full p-1 transition-colors relative flex items-center shadow-inner cursor-pointer">
-                        <div id="thumb-lights" class="w-6 h-6 bg-white rounded-full shadow-md transform translate-x-6 transition-transform"></div>
-                    </button>
-                </div>
-
-                <!-- Ovládací prvok 2: Klimatizácie (2 klimatizácie) -->
-                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center">
-                            <i class="fa-solid fa-temperature-high"></i>
-                        </div>
-                        <div>
-                            <div class="text-sm font-bold text-white">Klimatizácie (2x AC)</div>
-                            <div id="text-temperature" class="text-xs text-rose-400 font-semibold mt-0.5">22.5 °C</div>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <button onclick="adjustTemperature(-0.5)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold flex items-center justify-center transition-colors cursor-pointer">-</button>
-                        <button onclick="adjustTemperature(0.5)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold flex items-center justify-center transition-colors cursor-pointer">+</button>
                     </div>
                 </div>
 
-                <!-- Ovládací prvok 3: Alarm -->
+                <!-- 2. Pracovňa -->
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-3">
+                    <div class="text-xs font-bold text-blue-400 uppercase tracking-wide">Pracovňa</div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-slate-300 flex items-center space-x-2"><i class="fa-solid fa-lightbulb text-amber-400"></i><span>Svetlo</span></span>
+                        <button onclick="toggleLight('pracovna-light')" id="btn-pracovna-light" class="w-12 h-7 bg-blue-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end">
+                            <div id="thumb-pracovna-light" class="w-5 h-5 bg-white rounded-full shadow-md transition-transform"></div>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                        <span class="text-sm text-slate-300 flex items-center space-x-2"><i class="fa-solid fa-snowflake text-rose-400"></i><span>Klíma teplota</span></span>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="adjustTemp('pracovna-ac', -1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition-colors cursor-pointer">-</button>
+                            <span id="temp-pracovna-ac" class="text-sm font-bold text-emerald-400 w-12 text-center">22 °C</span>
+                            <button onclick="adjustTemp('pracovna-ac', 1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition-colors cursor-pointer">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Hostinská izba -->
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-3">
+                    <div class="text-xs font-bold text-blue-400 uppercase tracking-wide">Hostinská izba</div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-slate-300 flex items-center space-x-2"><i class="fa-solid fa-lightbulb text-amber-400"></i><span>Svetlo</span></span>
+                        <button onclick="toggleLight('izba2-light')" id="btn-izba2-light" class="w-12 h-7 bg-blue-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end">
+                            <div id="thumb-izba2-light" class="w-5 h-5 bg-white rounded-full shadow-md transition-transform"></div>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                        <span class="text-sm text-slate-300 flex items-center space-x-2"><i class="fa-solid fa-snowflake text-rose-400"></i><span>Klíma teplota</span></span>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="adjustTemp('izba2-ac', -1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition-colors cursor-pointer">-</button>
+                            <span id="temp-izba2-ac" class="text-sm font-bold text-emerald-400 w-12 text-center">22 °C</span>
+                            <button onclick="adjustTemp('izba2-ac', 1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition-colors cursor-pointer">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Obývačka & Kuchyňa -->
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-3">
+                    <div class="text-xs font-bold text-blue-400 uppercase tracking-wide">Obývačka & Kuchyňa</div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-slate-300 flex items-center space-x-2"><i class="fa-solid fa-lightbulb text-amber-400"></i><span>Svetlo</span></span>
+                        <button onclick="toggleLight('obyvacka-light')" id="btn-obyvacka-light" class="w-12 h-7 bg-blue-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end">
+                            <div id="thumb-obyvacka-light" class="w-5 h-5 bg-white rounded-full shadow-md transition-transform"></div>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                        <span class="text-sm text-slate-300 flex items-center space-x-2"><i class="fa-solid fa-snowflake text-rose-400"></i><span>Klíma teplota</span></span>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="adjustTemp('obyvacka-ac', -1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition-colors cursor-pointer">-</button>
+                            <span id="temp-obyvacka-ac" class="text-sm font-bold text-emerald-400 w-12 text-center">22 °C</span>
+                            <button onclick="adjustTemp('obyvacka-ac', 1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition-colors cursor-pointer">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Wellness & Sauna -->
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-3">
+                    <div class="text-xs font-bold text-blue-400 uppercase tracking-wide">Wellness & Sauna</div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-slate-300 flex items-center space-x-2"><i class="fa-solid fa-lightbulb text-amber-400"></i><span>Svetlo</span></span>
+                        <button onclick="toggleLight('wellness-light')" id="btn-wellness-light" class="w-12 h-7 bg-blue-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end">
+                            <div id="thumb-wellness-light" class="w-5 h-5 bg-white rounded-full shadow-md transition-transform"></div>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                        <span class="text-sm text-slate-300 flex items-center space-x-2"><i class="fa-solid fa-snowflake text-rose-400"></i><span>Klíma teplota</span></span>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="adjustTemp('wellness-ac', -1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition-colors cursor-pointer">-</button>
+                            <span id="temp-wellness-ac" class="text-sm font-bold text-emerald-400 w-12 text-center">22 °C</span>
+                            <button onclick="adjustTemp('wellness-ac', 1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition-colors cursor-pointer">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Alarm -->
                 <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 flex items-center justify-between">
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
                         <div>
-                            <div class="text-sm font-bold text-white">Bezpečnostný alarm</div>
-                            <div class="text-xs text-slate-400">Režim stráženia objektu</div>
+                            <div class="text-sm font-bold text-white">Alarm (Chodba)</div>
+                            <div class="text-xs text-slate-400">Zabezpečenie objektu</div>
                         </div>
                     </div>
-                    <button onclick="toggleHomeAlarm()" id="btn-alarm" class="w-14 h-8 bg-emerald-600 rounded-full p-1 transition-colors relative flex items-center shadow-inner cursor-pointer">
-                        <div id="thumb-alarm" class="w-6 h-6 bg-white rounded-full shadow-md transform translate-x-6 transition-transform"></div>
+                    <button onclick="toggleAlarm('chodba-alarm')" id="btn-chodba-alarm" class="w-12 h-7 bg-emerald-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end">
+                        <div id="thumb-chodba-alarm" class="w-5 h-5 bg-white rounded-full shadow-md transition-transform"></div>
                     </button>
                 </div>
 
@@ -166,9 +265,9 @@
 
         </div>
 
-        <!-- Tlačidlo Späť -->
+        <!-- Tlačidlo Späť na hlavnú stránku -->
         <div class="text-center mt-12">
-            <a href="index.html" class="inline-flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm">
+            <a href="index.html#domov" class="inline-flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm border border-slate-700">
                 <i class="fa-solid fa-arrow-left"></i>
                 <span>Späť na hlavnú stránku</span>
             </a>
@@ -177,63 +276,118 @@
     </main>
 
     <!-- PÄTIČKA -->
-    <footer class="border-t border-slate-800 py-8 bg-darkBg text-slate-500 text-xs text-center">
-        <p>&copy; 2026 TvojSmartDomov. Všetky práva vyhradené.</p>
+    <footer class="border-t border-slate-800 py-8 bg-darkBg text-slate-500 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2">
+                <div class="w-6 h-6 rounded-lg bg-blue-600 flex items-center justify-center text-white text-xs">
+                    <i class="fa-solid fa-house-signal"></i>
+                </div>
+                <span class="text-slate-300 font-semibold">TvojSmartDomov © 2026</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="index.html#domov" class="hover:text-slate-300 transition">Domov</a>
+                <a href="index.html#vyhody" class="hover:text-slate-300 transition">Výhody</a>
+                <a href="index.html#kontakty" class="hover:text-slate-300 transition">Podpora</a>
+            </div>
+        </div>
     </footer>
 
-    <!-- INTERAKTÍVNA LOGIKA PRE DASHBOARD -->
+    <!-- INTERAKTÍVNA LOGIKA -->
     <script>
-        let lightsActive = true;
-        let alarmActive = true;
-        let currentTemp = 22.5;
+        // Mobilné menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
 
-        function toggleHomeLights() {
-            lightsActive = !lightsActive;
-            const btn = document.getElementById('btn-lights');
-            const thumb = document.getElementById('thumb-lights');
-            const sumText = document.getElementById('sum-lights');
+        const temperatures = {
+            'spalna-ac': 22,
+            'pracovna-ac': 22,
+            'izba2-ac': 22,
+            'obyvacka-ac': 22,
+            'wellness-ac': 22
+        };
 
-            if (lightsActive) {
-                btn.className = "w-14 h-8 bg-blue-600 rounded-full p-1 transition-colors relative flex items-center shadow-inner cursor-pointer";
-                thumb.className = "w-6 h-6 bg-white rounded-full shadow-md transform translate-x-6 transition-transform";
-                sumText.innerText = "Zapnuté";
-                sumText.className = "text-xs font-bold text-amber-400 mt-1";
+        const lightsState = {
+            'spalna-light': true,
+            'pracovna-light': true,
+            'izba2-light': true,
+            'obyvacka-light': true,
+            'wellness-light': true
+        };
+
+        let alarmState = true;
+
+        function toggleLight(id) {
+            lightsState[id] = !lightsState[id];
+            const isOn = lightsState[id];
+            
+            const btn = document.getElementById('btn-' + id);
+            const icon = document.getElementById('icon-' + id);
+
+            if (isOn) {
+                btn.className = "w-12 h-7 bg-blue-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end";
+                icon.className = "map-icon light-on";
             } else {
-                btn.className = "w-14 h-8 bg-slate-700 rounded-full p-1 transition-colors relative flex items-center shadow-inner cursor-pointer";
-                thumb.className = "w-6 h-6 bg-white rounded-full shadow-md transform translate-x-0 transition-transform";
-                sumText.innerText = "Vypnuté";
-                sumText.className = "text-xs font-bold text-slate-500 mt-1";
+                btn.className = "w-12 h-7 bg-slate-700 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-start";
+                icon.className = "map-icon light-off";
             }
         }
 
-        function adjustTemperature(val) {
-            currentTemp = Math.round((currentTemp + val) * 10) / 10;
-            document.getElementById('text-temperature').innerText = currentTemp + " °C";
-        }
+        function adjustTemp(id, change) {
+            temperatures[id] += change;
+            const currentTemp = temperatures[id];
+            
+            const tempSpan = document.getElementById('temp-' + id);
+            tempSpan.innerText = currentTemp + " °C";
 
-        function toggleHomeAlarm() {
-            alarmActive = !alarmActive;
-            const btn = document.getElementById('btn-alarm');
-            const thumb = document.getElementById('thumb-alarm');
-            const sumText = document.getElementById('sum-alarm');
-
-            if (alarmActive) {
-                btn.className = "w-14 h-8 bg-emerald-600 rounded-full p-1 transition-colors relative flex items-center shadow-inner cursor-pointer";
-                thumb.className = "w-6 h-6 bg-white rounded-full shadow-md transform translate-x-6 transition-transform";
-                sumText.innerText = "Strážené";
-                sumText.className = "text-xs font-bold text-emerald-400 mt-1";
+            if (currentTemp <= 21) {
+                tempSpan.className = "text-sm font-bold text-blue-400 w-12 text-center";
+            } else if (currentTemp === 22) {
+                tempSpan.className = "text-sm font-bold text-emerald-400 w-12 text-center";
             } else {
-                btn.className = "w-14 h-8 bg-slate-700 rounded-full p-1 transition-colors relative flex items-center shadow-inner cursor-pointer";
-                thumb.className = "w-6 h-6 bg-white rounded-full shadow-md transform translate-x-0 transition-transform";
-                sumText.innerText = "Neaktívne";
-                sumText.className = "text-xs font-bold text-rose-400 mt-1";
+                tempSpan.className = "text-sm font-bold text-rose-400 w-12 text-center";
+            }
+
+            const icon = document.getElementById('icon-' + id);
+            if (icon) {
+                if (currentTemp <= 21) {
+                    icon.className = "map-icon ac-blue";
+                } else if (currentTemp === 22) {
+                    icon.className = "map-icon ac-green";
+                } else {
+                    icon.className = "map-icon ac-red";
+                }
             }
         }
 
-        setInterval(() => {
+        function toggleAlarm(id) {
+            alarmState = !alarmState;
+            const btn = document.getElementById('btn-' + id);
+            const icon = document.getElementById('icon-' + id);
+
+            if (alarmState) {
+                btn.className = "w-12 h-7 bg-emerald-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end";
+                icon.className = "map-icon alarm-on";
+            } else {
+                btn.className = "w-12 h-7 bg-slate-700 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-start";
+                icon.className = "map-icon alarm-off";
+            }
+        }
+
+        // Hodiny v reálnom čase
+        function updateClock() {
             const now = new Date();
-            document.getElementById('dash-clock').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        }, 1000);
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const clockEl = document.getElementById('dash-clock');
+            if(clockEl) clockEl.innerText = `${h}:${m}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 </body>
 </html>
