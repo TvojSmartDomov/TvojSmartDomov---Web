@@ -120,7 +120,7 @@
         <!-- DVOJSTĹPCOVÝ LAYOUT -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             
-            <!-- ĽAVÝ STĹPEC: Pôdorys + Ovládanie žalúzií a spotreba -->
+            <!-- ĽAVÝ STĹPEC: Pôdorys + Žalúzie + Rýchle scény -->
             <div class="space-y-6">
                 
                 <!-- Pôdorys domu -->
@@ -193,6 +193,38 @@
                                 <button onclick="setBlinds('pracovna', 'close')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-lg transition cursor-pointer">Dole</button>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- RÝCHLE SCÉNY (Noc a Dovolenka) -->
+                <div class="bg-cardBg border border-slate-800 rounded-3xl p-6 glow-card space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <span class="text-xs font-bold tracking-wider text-slate-300 uppercase">RÝCHLE SCÉNY DOMU</span>
+                        <span class="text-xs text-blue-400 font-semibold"><i class="fa-solid fa-wand-magic-sparkles"></i> Automatizácie</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <!-- Scéna Noc -->
+                        <button onclick="triggerScene('noc')" class="bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/50 rounded-2xl p-4 text-left transition group cursor-pointer flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-base group-hover:scale-110 transition">
+                                <i class="fa-solid fa-moon"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold text-white">Režim Noc</div>
+                                <div class="text-[10px] text-slate-400">Zhasnúť svetlá, aktivovať alarm</div>
+                            </div>
+                        </button>
+
+                        <!-- Scéna Dovolenka -->
+                        <button onclick="triggerScene('dovolenka')" class="bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 rounded-2xl p-4 text-left transition group cursor-pointer flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-base group-hover:scale-110 transition">
+                                <i class="fa-solid fa-umbrella-beach"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold text-white">Režim Dovolenka</div>
+                                <div class="text-[10px] text-slate-400">Úsporný režim, plné zabezpečenie</div>
+                            </div>
+                        </button>
                     </div>
                 </div>
 
@@ -357,7 +389,6 @@
 
     <!-- INTERAKTÍVNA LOGIKA -->
     <script>
-        // Mobilné menu toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         if(mobileMenuBtn && mobileMenu) {
@@ -392,10 +423,10 @@
             const icon = document.getElementById('icon-' + id);
 
             if (isOn) {
-                btn.className = "w-12 h-7 bg-blue-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end";
+                if(btn) btn.className = "w-12 h-7 bg-blue-600 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-end";
                 if(icon) icon.className = "map-icon light-on";
             } else {
-                btn.className = "w-12 h-7 bg-slate-700 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-start";
+                if(btn) btn.className = "w-12 h-7 bg-slate-700 rounded-full p-1 transition-colors relative flex items-center cursor-pointer justify-start";
                 if(icon) icon.className = "map-icon light-off";
             }
         }
@@ -444,11 +475,27 @@
         }
 
         function setBlinds(room, action) {
-            // Jednoduchá interaktívna odozva pre žalúzie
-            console.log(`Žalúzie v miestnosti ${room} nastavené na: ${action}`);
+            console.log(`Žalúzie ${room}: ${action}`);
         }
 
-        // Hodiny v reálnom čase
+        function triggerScene(sceneName) {
+            if (sceneName === 'noc') {
+                // Režim Noc: zhasne všetky svetlá a zapne alarm
+                for (let key in lightsState) {
+                    if (lightsState[key]) toggleLight(key);
+                }
+                if (!alarmState) toggleAlarm('chodba-alarm');
+                alert('Aktivovaná scéna: Noc (Všetky svetlá zhasnuté, alarm zapnutý).');
+            } else if (sceneName === 'dovolenka') {
+                // Režim Dovolenka: úsporný režim, zhasnúť všetko, zapnúť alarm
+                for (let key in lightsState) {
+                    if (lightsState[key]) toggleLight(key);
+                }
+                if (!alarmState) toggleAlarm('chodba-alarm');
+                alert('Aktivovaná scéna: Dovolenka (Úsporný režim klimatizácií, zabezpečený dom).');
+            }
+        }
+
         function updateClock() {
             const now = new Date();
             const h = String(now.getHours()).padStart(2, '0');
