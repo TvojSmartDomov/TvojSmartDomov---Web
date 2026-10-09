@@ -64,25 +64,25 @@
         <!-- DVOJSTĹPCOVÝ LAYOUT -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             
-            <!-- ĽAVÝ STĹPEC: Váš 3D model domu (dom.glb) -->
+            <!-- ĽAVÝ STĹPEC: 3D model domu -->
             <div class="bg-cardBg border border-slate-800 rounded-3xl p-6 glow-card relative flex flex-col items-center justify-center min-h-[560px]">
                 <div class="absolute top-4 left-6 text-sm font-semibold text-slate-300 flex items-center space-x-2 z-10">
                     <i class="fa-solid fa-cube text-blue-500"></i>
                     <span>3D Pôdorys domu (Interaktívny model)</span>
                 </div>
 
-                <!-- Google model-viewer element načítavajúci lokálny súbor dom.glb -->
+                <!-- Google model-viewer element s online testovacím modelom -->
                 <div class="w-full h-[460px] mt-8 bg-slate-900/90 rounded-2xl border-2 border-slate-700/80 overflow-hidden shadow-2xl flex items-center justify-center">
                     <model-viewer 
-                        src="dom.glb" 
-                        alt="3D Pôdorys domu" 
+                        src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+                        alt="3D model domu" 
                         auto-rotate 
                         camera-controls 
                         shadow-intensity="1" 
                         style="width: 100%; height: 100%;">
                     </model-viewer>
                 </div>
-                <span class="text-xs text-slate-500 mt-4"><i class="fa-solid fa-circle-info mr-1"></i> Model môžete myšou otáčať, približovať a prezerať z vrchu.</span>
+                <span class="text-xs text-slate-500 mt-4"><i class="fa-solid fa-circle-info mr-1"></i> Model môžete myšou otáčať, približovať a prezerať.</span>
             </div>
 
             <!-- PRAVÝ STĹPEC: Home Assistant Dashboard -->
@@ -91,7 +91,7 @@
                 <!-- Hlavička dashboardu -->
                 <div class="flex items-center justify-between border-b border-slate-800 pb-4">
                     <span class="text-sm font-bold tracking-wider text-slate-300 uppercase">VIRTUALNY SMART HOME</span>
-                    <span id="dash-clock" class="text-sm font-semibold text-slate-400">13:41</span>
+                    <span id="dash-clock" class="text-sm font-semibold text-slate-400">13:46</span>
                 </div>
 
                 <!-- 3 Horné sumárne karty -->
